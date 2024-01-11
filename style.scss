@@ -1,0 +1,125 @@
+/* VARIABLES */
+
+$colors: (
+    background: #79a8a9,
+    backgrounDarker: #1f4e5f,
+    card: #f4f7f7,
+    text: #1f4e5f,
+    textInverted: #f4f7f7
+);
+
+$sizes: (
+    padding: 1.5em,
+    height: 4em,
+    shadow: 5px,
+    perspective: 150px
+);
+
+/* BASE STYLES */
+
+body {
+    color: map-get($colors, text );
+    font: 400 100%/1.4 "Lato", sans-serif;
+    background-image: radial-gradient(map-get($colors, backgrounDarker) 10%, map-get($colors, background)100%);
+    background-size: 2000px 2000px;
+    background-position: center;
+}
+
+.flex {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.heading {
+    color: map-get($colors, textInverted);
+    font-size: 1rem;
+    padding-bottom: 2rem;
+    text-transform: uppercase;
+    opacity: 0.85;
+}
+
+/* THE LIST ITSELF */
+
+.list {
+    font-size: 1.15rem;
+
+    &_item {
+        position: relative;
+        padding: map-get($colors, padding );
+        line-height: 1;
+        perspective: map-get($colors, perspective);
+        background-color: map-get($colors, card);
+        white-space: nowrap;
+    }
+
+    &::before,
+    &::after {
+        position: absolute;
+        top: 0;
+        display: block;
+        height: 0;
+        width: 0;
+        content: "";
+        border: 0 solid transparent;
+    }
+
+    &::after {
+        right: 0;
+    }
+
+    &::before {
+        left: 0;
+    }
+
+    &:nth-child(even) {
+        background-image: linear-gradient(tobottom, rgba(0,0,0,0,1) 0%, transparent 100%);
+
+        &::before
+        &::after {
+            border-top-color: map-get($colors, backgrounDarker );
+            border-top-width: map-get($sizes, height);
+        }
+        
+        &::before {
+            border-right-width: map-get($sizes, shadow );
+        }
+
+        &::after {
+            border-left-width: map-get($sizes, shadow );
+        }
+    }
+
+    &:nth-child(odd) {
+        background-image: linear-gradient(tobottom, rgba(0,0,0,0,15) 0%, rgba(0,0,0,0,15) 100%);
+
+        &::before
+        &::after {
+            border-bottom-color: map-get($colors, backgrounDarker );
+            border-bottom-width: map-get($sizes, height);
+        }
+
+        &::before {
+            border-right-width: map-get($sizes, shadow );
+        }
+
+        &::after {
+            border-left-width: map-get($sizes, shadow );
+        }
+    }
+
+    &-text {
+        display: inline-block;
+
+        .list_item:nth-child(odd) & {
+            transform: rotateX(-7deg);
+        }
+
+        .list_item:nth-child(even) & {
+            transform: rotateX(7deg);
+        }
+    }
+}
